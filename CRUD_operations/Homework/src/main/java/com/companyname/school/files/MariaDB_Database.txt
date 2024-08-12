@@ -1,0 +1,51 @@
+Create Database:
+
+CREATE DATABASE SchoolDB;
+USE SchoolDB;
+
+Create Tables:
+
+CREATE TABLE Students(
+   Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   Name VARCHAR(30) NOT NULL,
+   Major VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE Instructors(
+   Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   Name VARCHAR(30) NOT NULL,
+   Location VARCHAR(30)
+);
+
+CREATE TABLE Courses(
+   Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   Name VARCHAR(30) NOT NULL,
+   Instructor_Id INT NOT NULL,
+   CONSTRAINT `fk_instructor_id` FOREIGN KEY (Instructor_Id) REFERENCES Instructors(Id)
+);
+
+CREATE TABLE Courses_Grades(
+   Student_Id INT NOT NULL,
+   Course_Id INT NOT NULL,
+   Grade FLOAT NOT NULL,
+   CONSTRAINT `fk_student_id` FOREIGN KEY (Student_Id) REFERENCES Students(Id),
+   CONSTRAINT `fk_course_id` FOREIGN KEY (Course_Id) REFERENCES Courses(Id),
+   PRIMARY KEY (Student_Id, Course_Id)
+);
+
+
+Insert Data:
+
+INSERT INTO Students (Name, Major) VALUES
+("Bryan", "Computer Science"),
+("Mario", "Computer Sciences");
+
+INSERT INTO Instructors (Name, Location) VALUES
+("Javier", "CDMX BJ");
+
+INSERT INTO Courses (Name, Instructor_Id) VALUES
+("OOP", 1);  -- Corrected "OPP" to "OOP" for consistency
+
+-- Insert into Courses_Grades with correct Course_Id
+INSERT INTO Courses_Grades (Student_Id, Course_Id, Grade) VALUES
+(1, 1, 9);  -- Changed Course_Id to 1 to match the inserted course
